@@ -8,10 +8,25 @@
 <body>
 <form>
 	<fieldset>
-		<legend>Цвета</legend>
-		<label class='color_label'>Цвет 0</label><input type="text" class='num_color' placeholder="#XXXXXX rgb(x,x,x)">
-		<label class='color_label'>Цвет 1</label><input type="text" class='num_color' placeholder="#XXXXXX rgb(x,x,x)">
+		<legend>Методы маскировки</legend>
+		<ul style="list-style: none;">
+		<li><input type="checkbox" id='is_paint' checked><label for='is_paint'>Семаграммы</label></li>
+		<li><input type="checkbox" id='is_fontsize' checked><label for='is_fontsize'>Шрифт</label></li>
+		</ul>
 	</fieldset>
+
+	<fieldset id='colors'>
+		<legend>Цвета</legend>
+		<label class='color_label' for="color0">Цвет 0</label><input type="text" class='num_color' id = 'color0' placeholder="#XXXXXX rgb(x,x,x)">
+		<label class='color_label' for="color1">Цвет 1</label><input type="text" class='num_color' id = 'color1' placeholder="#XXXXXX rgb(x,x,x)">
+	</fieldset>
+	
+	<fieldset id='fontsizes'>
+		<legend>Размеры шрифтов</legend>
+		<label class='color_label' for="fontsize0">Размер шрифта 0</label><input type="text" class='num_fontsize' id = 'fontsize0' placeholder="Число: 8,12,14,72...">
+		<label class='color_label' for="fontsize1">Размер шрифта 1</label><input type="text" class='num_fontsize' id = 'fontsize1' placeholder="Число: 8,12,14,72...">
+	</fieldset>
+	
 	<fieldset>
 		<legend>Данные</legend>
 		<label>Сообщение:</label><textarea id='message' placeholder="Ваше сообщение"></textarea>
