@@ -1,3 +1,7 @@
+ul{
+	list-style: none;
+}
+
 fieldset#data label{
 	vertical-align: top; 
 }

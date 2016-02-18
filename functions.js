@@ -12,7 +12,9 @@ var colors_flds,
 	result_p,
 	hide_btn,
 	is_paint_chb,
-	is_fontsize_chb;
+	is_fontsize_chb,
+	is_letters_chb,
+	mode_rad;
 
 function initialise(){
 	colors_flds = document.querySelectorAll('.num_color');
@@ -22,6 +24,16 @@ function initialise(){
 	fontsize_flds = document.querySelectorAll('.num_fontsize');
 	is_fontsize_chb = document.getElementById('is_fontsize');
 	is_fontsize_chb.addEventListener('change', isFontsizeActive, true);
+
+	is_letters_chb = document.getElementById('is_letters');
+	is_letters_chb.disabled = true;
+
+	isFontsizeActive();
+		isPaintActive();
+
+	mode_rad = document.getElementsByName('mode');
+	mode_rad[0].onchange = whatMode;
+	mode_rad[1].onchange = whatMode;
 
 	message_fld = document.getElementById('message');
 	container_fld = document.getElementById('container');
@@ -66,6 +78,29 @@ function isPaintActive(){
 }
 function isFontsizeActive(){
 	document.getElementById('fontsizes').disabled = !(this.checked);
+}
+function whatMode(){
+	if(this.value == 'letter'){
+		is_fontsize_chb.checked = false;
+		is_fontsize_chb.disabled = true;
+
+		is_paint_chb.checked = false;
+		is_paint_chb.disabled = true;
+
+		is_letters_chb.disabled = false;
+
+		isFontsizeActive();
+		isPaintActive();
+	}
+	else if(this.value == 'binary'){
+		is_fontsize_chb.disabled = false;
+
+		is_paint_chb.disabled = false;
+
+		is_letters_chb.checked = false;
+		is_letters_chb.disabled = true;
+
+	}
 }
 
 

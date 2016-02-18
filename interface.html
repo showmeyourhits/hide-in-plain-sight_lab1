@@ -4,14 +4,25 @@
 	<title>Hide in plain sight: Lab 1</title>
 	<script type="text/javascript" src="functions.js"></script>
 	<link rel="stylesheet" type="text/css" href="ma_stales.css">
+	<meta charset="utf-8">
 </head>
 <body>
 <form>
 	<fieldset>
 		<legend>Методы маскировки</legend>
 		<ul style="list-style: none;">
-		<li><input type="checkbox" id='is_paint' checked><label for='is_paint'>Семаграммы</label></li>
-		<li><input type="checkbox" id='is_fontsize' checked><label for='is_fontsize'>Шрифт</label></li>
+		<li><input type="radio" name='mode' value='binary' checked>Битово
+		<ul style="list-style: none;">
+			<li><input type="checkbox" id='is_paint' ><label for='is_paint'>Семаграммы</label></li>
+			<li><input type="checkbox" id='is_fontsize' ><label for='is_fontsize'>Шрифт</label></li>
+		</ul>
+		</li>
+		<li><input type="radio" name='mode' value='letter'>Буквы
+		<ul>
+			<li><input type="checkbox" id='is_letters' ><label for='is_letters'>Буквы</label></li>
+		</ul>
+		</li>
+		
 		</ul>
 	</fieldset>
 
