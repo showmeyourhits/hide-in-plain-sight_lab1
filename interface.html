@@ -9,33 +9,30 @@
 <body>
 <form>
 	<fieldset>
+		<legend>Режим</legend>
+		<ul>
+			<li><input type="radio" name='mode' id='binary_mode' value='binary' checked><label for="binary_mode">Битово</label>
+			<li><input type="radio" name='mode' id='letter_mode' value='letter'><label for='letter_mode'>Буквы</label>
+		</ul>
+	</fieldset>
+	<fieldset>
 		<legend>Методы маскировки</legend>
 		<ul style="list-style: none;">
-		<li><input type="radio" name='mode' value='binary' checked>Битово
-		<ul style="list-style: none;">
-			<li><input type="checkbox" id='is_paint' ><label for='is_paint'>Семаграммы</label></li>
-			<li><input type="checkbox" id='is_fontsize' ><label for='is_fontsize'>Шрифт</label></li>
-		</ul>
-		</li>
-		<li><input type="radio" name='mode' value='letter'>Буквы
-		<ul>
-			<li><input type="checkbox" id='is_letters' ><label for='is_letters'>Буквы</label></li>
-		</ul>
-		</li>
-		
+			<li><input type="checkbox" id='is_paint' checked><label for='is_paint'>Семаграммы</label></li>
+			<li><input type="checkbox" id='is_fontsize' checked><label for='is_fontsize'>Шрифт</label></li>
 		</ul>
 	</fieldset>
 
 	<fieldset id='colors'>
 		<legend>Цвета</legend>
-		<label class='color_label' for="color0">Цвет 0</label><input type="text" class='num_color' id = 'color0' placeholder="#XXXXXX rgb(x,x,x)">
+		<label class='color_label' for="color0">Цвет 0</label><input type="text" class='num_color' id = 'color0' placeholder="#XXXXXX rgb(x,x,x)"><br>
 		<label class='color_label' for="color1">Цвет 1</label><input type="text" class='num_color' id = 'color1' placeholder="#XXXXXX rgb(x,x,x)">
 	</fieldset>
 	
 	<fieldset id='fontsizes'>
 		<legend>Размеры шрифтов</legend>
-		<label class='color_label' for="fontsize0">Размер шрифта 0</label><input type="text" class='num_fontsize' id = 'fontsize0' placeholder="Число: 8,12,14,72...">
-		<label class='color_label' for="fontsize1">Размер шрифта 1</label><input type="text" class='num_fontsize' id = 'fontsize1' placeholder="Число: 8,12,14,72...">
+		<label class='fontsize_label' for="fontsize0">Размер шрифта 0</label><input type="text" class='num_fontsize' id = 'fontsize0' placeholder="Число: 8,12,14,72..."><br>
+		<label class='fontsize_label' for="fontsize1">Размер шрифта 1</label><input type="text" class='num_fontsize' id = 'fontsize1' placeholder="Число: 8,12,14,72...">
 	</fieldset>
 	
 	<fieldset id='data'>

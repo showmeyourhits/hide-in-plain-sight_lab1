@@ -14,7 +14,8 @@ var colors_flds,
 	is_paint_chb,
 	is_fontsize_chb,
 	is_letters_chb,
-	mode_rad;
+	mode_rad,
+	mode;
 
 function initialise(){
 	colors_flds = document.querySelectorAll('.num_color');
@@ -25,23 +26,16 @@ function initialise(){
 	is_fontsize_chb = document.getElementById('is_fontsize');
 	is_fontsize_chb.addEventListener('change', isFontsizeActive, true);
 
-	is_letters_chb = document.getElementById('is_letters');
-	is_letters_chb.disabled = true;
-
-	isFontsizeActive();
-		isPaintActive();
-
 	mode_rad = document.getElementsByName('mode');
-	mode_rad[0].onchange = whatMode;
-	mode_rad[1].onchange = whatMode;
-
+	for(var i = 0; i < mode_rad.length; i++)
+		mode_rad[i].onchange = whatMode;
+	mode = 'binary';
+	
 	message_fld = document.getElementById('message');
 	container_fld = document.getElementById('container');
 	result_p = document.getElementById('result');
 	hide_btn = document.getElementById('hide_btn');
 	
-	
-
 	//temporary
 	colors_flds[0].value = sample_colors[0];
 	colors_flds[1].value = sample_colors[1];
@@ -50,7 +44,6 @@ function initialise(){
 	container_fld.value = sample_container;
 	message_fld.value = sample_message;
 	//end tmp
-
 
 	hide_btn.addEventListener('click', hide, true);
 
@@ -80,28 +73,28 @@ function isFontsizeActive(){
 	document.getElementById('fontsizes').disabled = !(this.checked);
 }
 function whatMode(){
-	if(this.value == 'letter'){
-		is_fontsize_chb.checked = false;
-		is_fontsize_chb.disabled = true;
+	var color_labels = document.getElementById('colors').querySelectorAll('label.color_label');
+	var fontsizes_labels = document.getElementById('fontsizes').querySelectorAll('label.fontsize_label');
 
-		is_paint_chb.checked = false;
-		is_paint_chb.disabled = true;
-
-		is_letters_chb.disabled = false;
-
-		isFontsizeActive();
-		isPaintActive();
+	if(this.value === 'binary'){
+		console.log('now binary');
+		for(var i = 0; i < color_labels.length; i++){
+			color_labels[i].innerText = 'Цвет ' + i;
+			fontsizes_labels[i].innerText = 'Размер шрифта ' + i;
+		}
 	}
-	else if(this.value == 'binary'){
-		is_fontsize_chb.disabled = false;
+	else if(this.value === 'letter'){
+		console.log('now letter');
+		color_labels[0].innerText = 'Цвет символов контейнера';
+		color_labels[1].innerText = 'Цвет символов сообщения';
 
-		is_paint_chb.disabled = false;
-
-		is_letters_chb.checked = false;
-		is_letters_chb.disabled = true;
-
+		fontsizes_labels[0].innerText = 'Размер символов контейнера';
+		fontsizes_labels[1].innerText = 'Размер символов сообщения';
 	}
+
+	mode = this.value;
 }
+
 
 
 function hide(){
@@ -114,8 +107,12 @@ function hide(){
 
 	if(checkColor(colors[0]) && checkColor(colors[1])){
 		var bin_m = messageToBinary(message_fld.value);
+		if(bin_m.length > container_fld.value.length || message_fld.value.length > container_fld.value.length){
+			result_p.innerText = 'Контейнер недостаточно велик.'
+			return;
+		}
 		
-		if(checkLength(bin_m, container_fld.value)){
+		if(mode === 'binary'){
 			var painted = new DocumentFragment();
 			var i = 0,
 				j = 0;
@@ -143,10 +140,44 @@ function hide(){
 			span.innerText = container_fld.value.slice(j);
 			result.appendChild(span);
 		}
-		else{
-			result.innerText = 'Контейнер недостаточно велик. Должен быть > ' + bin_m.length + ' символов';		
-		}
-	}
+		else if(mode === 'letter'){
+			var painted = new DocumentFragment();
+			var i = 0,
+				j = 0;
+			while(i < message_fld.value.length && j < container_fld.value.length){
+				var span = document.createElement('span');
+				span.innerText = container_fld.value[j];
 
-	//result.innerText = 'YOBA\nEto ty?';
+				if(container_fld.value[j].toLowerCase() == message_fld.value[i].toLowerCase()){
+					if(is_paint_chb.checked)
+						span.style.color = colors[Number(is_paint_chb.checked)];
+
+					if(is_fontsize_chb.checked)
+						span.style.fontSize = fontsizes[Number(is_fontsize_chb.checked)];
+					
+					i++;
+				}
+				j++;
+				painted.appendChild(span);
+			}
+			if(i < message_fld.value.length){
+				result_p.innerText = 'Контейнер недостаточно велик.'
+				return;
+			}
+
+			result.innerText = '';
+			result.appendChild(painted);
+			span = document.createElement('span');
+
+			if(is_fontsize_chb.checked)
+				span.style.fontSize = fontsizes[0];
+			if(is_paint_chb.checked)
+				span.style.color = colors[0];
+			
+			span.innerText = container_fld.value.slice(j);
+			result.appendChild(span);
+		}
+		else
+			result.innerText = 'How did you get here?';
+	}
 }

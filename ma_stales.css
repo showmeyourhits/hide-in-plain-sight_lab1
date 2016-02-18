@@ -1,5 +1,14 @@
+
+.num_color,
+.num_fontsize{
+	margin-left: 10px;
+	margin-bottom: 5px;
+}
+
 ul{
 	list-style: none;
+	margin: 0px;
+	
 }
 
 fieldset#data label{
