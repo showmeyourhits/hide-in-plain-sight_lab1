@@ -1,0 +1,13 @@
+fieldset#data label{
+	vertical-align: top; 
+}
+
+textarea#message{
+	vertical-align: top;
+	height: 200px;
+}
+
+textarea#container{
+	min-width: 300px;
+	height: 200px;
+}
